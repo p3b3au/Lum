@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div class=playableButtonsV><strong>Augmente ta vitesse</strong><br>
+        <button class=btnV id="vAdd1">+1</buttion> <!--<abbr title="10m$">+1</abbr>-->
+            <button class=btnV id="vAdd5">+5</buttion>
+                <button class=btnV id="vAdd10">+10</buttion>
+    </div>
+    <br>
+    <div class=playableButtonsV><strong>Augmente ton acceleration</strong><br>
+        <button class=btnA id="aAdd1">+1</buttion>
+        <button class=btnA id="aAdd5">+5</buttion>
+        <button class=btnA id="aAdd10">+10</buttion>
+    </div>
+
+    <hr>
+    <div class=counters>
+        <div class=displayNb id="V">Vitesse : 1 m/s;</div>
+        <div class=displayNb id="A">Acceleration : 0 m/s²</div>
+        <div class=displayNb id="M">M</div>
+        <br>
+        <div class=displayNb id="D"></div>
+        <div class=displayNb id="C">% célérité</div>
+
+    </div>
+
+</body>
+
+<script>
+    const param = 1000;
+
+
+    var D = 0;
+    var V = 1;
+    var A = 0;
+    var M = 0;
+    var C = 0;
+
+    const divD = document.getElementById("D");
+    const divV = document.getElementById("V");
+    const divM = document.getElementById("M");
+    const divA = document.getElementById("A");
+    const divC = document.getElementById("C");
+
+
+    const vAdd10 = document.getElementById("vAdd10");
+    const vAdd5 = document.getElementById("vAdd5");
+    const vAdd1 = document.getElementById("vAdd1");
+    const aAdd10 = document.getElementById("aAdd10");
+    const aAdd5 = document.getElementById("aAdd5");
+    const aAdd1 = document.getElementById("aAdd1");
+
+
+
+
+    function showD() {
+        D = D + V
+        // console.log(D);
+        divD.textContent = `Distance totale parcourue : ${D} m`;
+    };
+
+    function showM() {
+        M = M + V
+        divM.textContent = `Mètres utilisables : ${M} m$`;
+    }
+
+    function showV() {
+        V = V + A,
+            divV.textContent = `Vitesse : ${V} m/s`;
+            
+    };
+
+    function showC() {
+        C = V/3000000,
+            divC.textContent = `Célérité : ${C} %`;
+    };
+
+
+
+
+
+
+    vAdd1.onclick = function () {
+        if(M>10){V = V + 1,
+        M = M - 10,
+        divV.textContent = `Vitesse : ${V} m/s`;
+        divM.textContent = `Mètres utilisables : ${M} m$`;}
+    };
+    vAdd5.onclick = function () {
+        if(M>100){ V = V + 5,
+        M = M - 100,
+        divV.textContent = `Vitesse : ${V} m/s`;
+        divM.textContent = `Mètres utilisables : ${M} m$`;}
+    };
+    vAdd10.onclick = function () {
+        if(M>1000){ V = V + 10,
+        M = M - 1000,
+        divV.textContent = `Vitesse : ${V} m/s`;
+        divM.textContent = `Mètres utilisables : ${M} m$`;}
+    };
+
+
+    aAdd1.onclick = function () {
+        if(M>10000){ A = A + 1,
+            M = M - 10000,
+            divA.textContent = `Acceleration : ${A} m/s²`;}
+    };
+    aAdd5.onclick = function () {
+        if(M>100000){ A = A + 5,
+            M = M - 100000,
+            divA.textContent = `Acceleration : ${A} m/s²`;}
+    };
+    aAdd10.onclick = function () {
+        if(M>1000000){ A = A + 10,
+            M = M - 1000000,
+            divA.textContent = `Acceleration : ${A} m/s²`;}
+
+    };
+
+
+
+
+    function checkBut() {
+        vAdd10.disabled = true;
+        vAdd5.disabled = true;
+        vAdd1.disabled = true;
+        aAdd10.disabled = true;
+        aAdd5.disabled = true;
+        aAdd1.disabled = true;
+
+        if (M >= 9) {
+            vAdd1.disabled = false;
+        };
+        if (M >= 100) {
+            vAdd5.disabled = false;
+        };
+        if (M >= 1000) {
+            vAdd10.disabled = false;
+        }
+        if (M >= 10000) {
+            aAdd1.disabled = false;
+        }
+        if (M >= 100000) {
+            aAdd5.disabled = false;
+        }
+        if (M >= 1000000) {
+            aAdd10.disabled = false;
+        }
+    };
+
+
+
+
+  
+
+
+
+    setInterval(showV, param);
+    setInterval(showM, param);
+    
+    setInterval(showD, param);
+    setInterval(showC, param);
+    setInterval(checkBut, param);
+    showD();
+</script>
+
+</html>
+<style>
+    .counters {
+        display: flexbox;
+    }
+
+    .playableButtonsV {
+        display: flexbox;
+    }
+</style>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div id=vBtnContainer><strong>Augmente ta vitesse</strong><br>
+
+    </div>
+    <br>
+    <div id=aBtnContainer><strong>Augmente ton Accélération</strong><br>
+    </div>
+
+    <hr>
+    <div id=counters>
+        
+
+    </div>
+
+</body>
+
+<script>
+    const param = 1000;
+
+
+
+    var D = 0;
+    var V = 1;
+    var A = 0;
+    var M = 0;
+    var C = 0;
+
+
+
+
+    class BoutonsV {
+        constructor(nb) {
+            const btn = document.createElement("button");
+            const aContainer = document.getElementById("vBtnContainer");
+            btn.innerHTML = `+${nb}`;
+            aContainer.append(btn);
+        }
+        vBtnCalc(nb) {
+            if (M > nb) {
+                V = V + nb,
+                    M = M - nb * 10,
+                    coef = coef + 0.1,
+                    showV(),
+                    showM(),
+                    calcul_e()
+            }
+        };
+    };
+
+
+
+    class BoutonsA {
+        constructor(nb) {
+            const btn = document.createElement("button");
+            const aContainer = document.getElementById("aBtnContainer");
+            btn.innerHTML = `+${nb}`;
+            aContainer.append(btn);
+        }
+        aBtnCalc(nb) {
+            if (M > nb) {
+                A = A + nb,
+                    M = M - nb * 10,
+                    coef = coef + 0.1,
+                    showV(),
+                    showM(),
+                    calcul_e()
+            }
+        };
+    };
+
+
+    class Screen {
+        constructor(name) {
+            const div = document.createElement("div");
+            div.setAttribute("id", `${name}`);
+            const counterContainer = document.getElementById("counters");
+            div.innerHTML = `${name}`;
+            counterContainer.append(div);
+        }
+        show (){
+            
+        }
+    };
+
+
+
+
+    const vAdd1 = new BoutonsV(1);
+    const vAdd2 = new BoutonsV(10);
+    const vAdd3 = new BoutonsV(100);
+    const vAdd4 = new BoutonsV(1000);
+
+    const aAdd1 = new BoutonsA(1);
+    const aAdd2 = new BoutonsA(10);
+    const aAdd3 = new BoutonsA(100);
+    const aAdd4 = new BoutonsA(1000);
+
+    const divV = new Screen("V");
+    const divA = new Screen("A");
+    const divD = new Screen("D");
+    const divM = new Screen("M");
+    const divC = new Screen("C");
+
+
+
+
+
+
+
+
+
+
+    var D = 0;
+    var V = 1;
+    var A = 0;
+    var M = 0;
+    var C = 0;
+
+  
+
+
+
+
+
+
+
+
+
+
+
+    // // les valeurs variables //
+    function calcV() {
+        V = V + A
+    };
+
+    function showV() {
+        V.innerHTML = `Vitesse : ${V} m/s`;
+    };
+
+    function calcM() {
+        M = M + V
+    };
+
+    function showM() {
+        let MM = numberWithSpace(M)
+        divM.innerHTML = `Monney : ${MM} $`;
+    };
+
+    function showA() {
+        G = A / 9.8
+        let GG = numberWithSpace(G)
+        let AA = numberWithSpace(A)
+        divA.innerHTML = `Acceleration : ${AA} m/s² <br>-->   ${GG} G`
+    };
+
+    // les valeurs statiques //
+    function showC() {
+        K = V * 3.6
+        C = V / 3e8
+        let CC = numberWithSpace(C)
+
+        divC.innerHTML = `Vitesse : ${CC} c <br>-->   ${K} km/h`;
+    };
+
+    function showD() {
+        D = D + V
+        let DD = numberWithSpace(D)
+        AL = D / 9.46e15
+        let AAL = numberWithSpace(AAL)
+        divD.innerHTML = `Distance totale parcourue : ${DD} m  <br>--> ${AAL} AL`;
+
+    };
+
+
+    // fonction des boutons //
+    const x = 10;
+    var coef = 1;
+    e = 1;
+
+    function calcul_e() {
+        e = x * coef
+    }
+
+    function numberWithSpace(x) {
+        if (x > 1000) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+        } else {
+            return x
+        }
+    }
+
+
+
+    // function vBtnCalc(e) {
+    //     if (M > e) {
+    //         V = V + e / 10,
+    //             M = M - e,
+    //             coef = coef + 0.1,
+    //             showV(),
+    //             showM(),
+    //             calcul_e()
+    //     }
+    // };
+
+    // function aBtnCalc(e) {
+    //     if (M > e) {
+    //         A = A + e / 10e3,
+    //             M = M - e,
+    //             coef = coef + 0.1,
+    //             showA(),
+    //             calcul_e()
+    //     }
+    // };
+
+
+    // vAdd1.onclick = function () {
+    //     vBtnCalc(x)
+    // };
+    // vAdd2.onclick = function () {
+    //     vBtnCalc(Math.pow(x, 2))
+    // };
+    // vAdd3.onclick = function () {
+    //     vBtnCalc(Math.pow(x, 3))
+    // };
+    // vAdd4.onclick = function () {
+    //     vBtnCalc(Math.pow(x, 4))
+    // };
+
+    // aAdd1.onclick = function () {
+    //     aBtnCalc(Math.pow(x, 4))
+    // };
+    // aAdd2.onclick = function () {
+    //     aBtnCalc(Math.pow(x, 5))
+    // };
+    // aAdd3.onclick = function () {
+    //     aBtnCalc(Math.pow(x, 6))
+    // };
+    // aAdd4.onclick = function () {
+    //     aBtnCalc(Math.pow(x, 7))
+    // };
+
+
+    // // affiche le prix en hover //
+    // vAdd1.onmouseover = logMouseOver;
+    // vAdd1.onmouseout = logMouseOut;
+
+    // function logMouseOver() {
+    //     let ee = e.toFixed(0);
+
+    //     vAdd1.innerHTML = `${ee} $`;
+    // }
+
+    // function logMouseOut() {
+    //     vAdd1.innerHTML = `+1`;
+    // }
+
+
+
+
+
+
+
+    // able des bouttons // 
+
+    function checkBut() {
+        vAdd1.disabled = true;
+        vAdd2.disabled = true;
+        vAdd3.disabled = true;
+        vAdd4.disabled = true;
+        aAdd1.disabled = true;
+        aAdd2.disabled = true;
+        aAdd3.disabled = true;
+        aAdd4.disabled = true;
+
+        if (M >= e) {
+            vAdd1.disabled = false;
+        };
+        if (M >= 10 * e) {
+            vAdd2.disabled = false;
+        };
+        if (M >= 100 * e) {
+            vAdd3.disabled = false;
+        }
+        if (M >= 1000 * e) {
+            vAdd4.disabled = false;
+        }
+        if (M >= 1000 * e) {
+            aAdd1.disabled = false;
+        }
+        if (M >= 10000 * e) {
+            aAdd2.disabled = false;
+        }
+        if (M >= 100000 * e) {
+            aAdd3.disabled = false;
+        }
+        if (M >= 1000000 * e) {
+            aAdd4.disabled = false;
+        }
+    };
+
+
+
+
+
+
+    // temps de la seconde ! //
+    setInterval(checkBut, param);
+    setInterval(showV, param);
+    setInterval(showM, param);
+
+    setInterval(showD, param);
+    setInterval(showC, param);
+
+    setInterval(calcV, param);
+    setInterval(calcM, param);
+
+    showD();
+</script>
+
+</html>
+<style>
+    #counters {
+        display: flexbox;
+    }
+
+    #vBtnContainer {
+        display: flexbox;
+    }
+
+    #aBtnContainer {
+        display: flexbox;
+    }
+</style>

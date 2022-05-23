@@ -12,7 +12,6 @@
 <body>
     <div class=playableButtonsV><strong>Augmente ta vitesse</strong><br>
         <button class=btnV id="vAdd1">+1</buttion>
-            <!--<abbr title="10m$">+1</abbr>-->
             <button class=btnV id="vAdd2">+10</buttion>
                 <button class=btnV id="vAdd3">+100</buttion>
                     <button class=btnA id="vAdd4">+1000</buttion>
@@ -24,11 +23,18 @@
                 <button class=btnA id="aAdd3">+100</buttion>
                     <button class=btnA id="aAdd4">+1000</buttion>
     </div>
-
+    <br>
+    <div class=playableButtonsAX><strong>Accelère ton acceleration</strong><br>
+        <button class=btnA id="axAdd1">+1</buttion>
+            <button class=btnA id="axAdd2">+10</buttion>
+                <button class=btnA id="axAdd3">+100</buttion>
+                    <button class=btnA id="axAdd4">+1000</buttion>
+    </div>
     <hr>
     <div class=counters>
         <div class=displayNb id="V">Vitesse : 1 m/s;</div>
         <div class=displayNb id="A">Acceleration : 0 m/s²</div>
+        <div class=displayNb id="AX">Sur-acceleration : 0 m/s³</div>
         <div class=displayNb id="M">M</div>
         <br>
         <div class=displayNb id="D"></div>
@@ -42,9 +48,11 @@
     const param = 1000;
 
 
+
     var D = 0;
     var V = 1;
     var A = 0;
+    var AX = 0;
     var M = 0;
     var C = 0;
 
@@ -52,6 +60,7 @@
     const divV = document.getElementById("V");
     const divM = document.getElementById("M");
     const divA = document.getElementById("A");
+    const divAX = document.getElementById("AX");
     const divC = document.getElementById("C");
 
 
@@ -63,7 +72,10 @@
     const aAdd2 = document.getElementById("aAdd2");
     const aAdd3 = document.getElementById("aAdd3");
     const aAdd4 = document.getElementById("aAdd4");
-
+    const axAdd1 = document.getElementById("axAdd1");
+    const axAdd2 = document.getElementById("axAdd2");
+    const axAdd3 = document.getElementById("axAdd3");
+    const axAdd4 = document.getElementById("axAdd4");
 
 
     // les valeurs variables //
@@ -72,63 +84,294 @@
     };
 
     function showV() {
-        divV.innerHTML = `Vitesse : ${V} m/s`;
+        let VV = numberWithSpace(V)
+        divV.innerHTML = `Vitesse : ${VV} m/s`;
     };
 
     function calcM() {
         M = M + V
     };
 
+    function calcA() {
+        A = A + AX
+    };
+
     function showM() {
-        divM.innerHTML = `Monney : ${M} $`;
+        let MM = numberWithSpace(M)
+        divM.innerHTML = `Monney : ${MM} $`;
     };
 
     function showA() {
-        G = A / 9.8,
-            divA.innerHTML = `Acceleration : ${A} m/s² <br>-->   ${G} G`;
+        G = A / 9.8
+        let GG = numberWithSpace(G)
+        let AA = numberWithSpace(A)
+        divA.innerHTML = `Acceleration : ${AA} m/s² <br>-->   ${GG} G`
+    };
+
+    function showAX() {
+        let AAX = numberWithSpace(AX)
+        divAX.innerHTML = `Acceleration : ${AAX} m/s³`
     };
 
     // les valeurs statiques //
     function showC() {
         K = V * 3.6
-        C = V / 3e8,
-            divC.innerHTML = `Vitesse : ${C} c <br>-->   ${K} km/h`;
+        C = V / 3e8
+        let CC = numberWithSpace(C)
+        let KK = '';
+        if(K<1000){
+            KK = K.toFixed(2)
+        }else{
+            KK = numberWithSpace(K.toFixed(0))
+        }
+        divC.innerHTML = `Vitesse : ${CC} c <br>-->   ${KK} km/h`;
     };
 
     function showD() {
-        D = D + V,
-            AL = D / 9.46e15,
-            divD.innerHTML = `Distance totale parcourue : ${D} m  <br>--> ${AL} AL`;
+        D = D + V
+        let DD = numberWithSpace(D)
+        AL = D / 9.46e15
+        let AAL = numberWithSpace(AL)
+        divD.innerHTML = `Distance totale parcourue : ${DD} m  <br>--> ${AAL} AL`;
+
     };
 
 
     // fonction des boutons //
     const x = 10;
-function vBtnCalc(e){
-    if (M > e) {
-            V = V + e/10,
-                M = M - e,
-                showV();
+    var coef = 1;
+    var eV1 = 10;
+    var eV2 = 100;
+    var eV3 = 1000;
+    var eV4 = 10000;
+
+    var aV1 = 1e4;
+    var aV2 = 1e5;
+    var aV3 = 1e6;
+    var aV4 = 1e7;
+
+    var axV1 = 1e7;
+    var axV2 = 1e8;
+    var axV3 = 1e9;
+    var axV4 = 1e10;
+
+
+    function numberWithSpace(x) {
+        if (x > 1000) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+        } else {
+            return x
+        }
+    }
+
+
+    vAdd1.onclick = function () {
+        if (M > eV1) {
+            V = V + 1,
+                M = M - eV1,
+                eV1 = eV1 + 1;
+            showV(),
             showM()
         }
-};
-function aBtnCalc(e){
-    if (M > e) {
-            A = A + e/10e3,
-                M = M - e,
+    };
+    vAdd2.onclick = function () {
+        if (M > eV2) {
+            V = V + 10,
+                M = M - eV2,
+                eV2 = eV2 + 10;
+            showV(),
+                showM()
+        }
+    };
+    vAdd3.onclick = function () {
+        if (M > eV3) {
+            V = V + 100,
+                M = M - eV3,
+                eV3 = eV3 + 100;
+            showV(),
+                showM()
+        }
+    };
+    vAdd4.onclick = function () {
+        if (M > eV4) {
+            V = V + 1000,
+                M = M - eV4,
+                eV4 = eV4 + 1000;
+            showV(),
+                showM()
+        }
+    };
+
+    aAdd1.onclick = function () {
+        if (M > aV1) {
+            A = A + 1,
+                M = M - aV1,
+                aV1 = aV1 + 1000,
                 showA()
         }
-};
+    };
+    aAdd2.onclick = function () {
+        if (M > aV2) {
+            A = A + 10,
+                M = M - aV2,
+                aV2 = aV2 + 10000,
+                showA()
+        }
+    };
+    aAdd3.onclick = function () {
+        if (M > aV3) {
+            A = A + 100,
+                M = M - aV3,
+                aV3 = aV3 + 10000,
+                showA()
+        }
+    };
+    aAdd4.onclick = function () {
+        if (M > aV4) {
+            A = A + 1000,
+                M = M - aV4,
+                aV4 = aV4 + 100000,
+                showA()
+        }
+    };
 
-    vAdd1.onclick = function(){ vBtnCalc(x)};
-    vAdd2.onclick = function(){ vBtnCalc(Math.pow(x, 2))};
-    vAdd3.onclick = function(){ vBtnCalc(Math.pow(x, 3))};
-    vAdd4.onclick = function(){ vBtnCalc(Math.pow(x, 4))};
 
-    aAdd1.onclick = function () {aBtnCalc(Math.pow(x, 4))};
-    aAdd2.onclick = function () {aBtnCalc(Math.pow(x, 5))};
-    aAdd3.onclick = function () {aBtnCalc(Math.pow(x, 6))};
-    aAdd4.onclick = function () {aBtnCalc(Math.pow(x, 7))};
+    axAdd1.onclick = function () {
+        if (M > axV1) {
+            A = A + 1,
+                M = M - axV1,
+                axV1 = axV1 + 1e6,
+                calcA()
+                showA()
+        }
+    };
+    axAdd2.onclick = function () {
+        if (M > axV2) {
+            A = A + 10,
+                M = M - axV2,
+                axV2 = axV2 + 1e7,
+                calcA()
+                showA()
+        }
+    };
+    axAdd3.onclick = function () {
+        if (M > axV3) {
+            A = A + 100,
+                M = M - axV3,
+                axV3 = axV3 + 1e8,
+                calcA()
+                showA()
+        }
+    };
+    axAdd4.onclick = function () {
+        if (M > axV4) {
+            A = A + 1000,
+                M = M - axV4,
+                axV4 = axV4 + 1e9,
+                calcA()
+                showA()
+        }
+    };
+
+
+    // affiche le prix en hover //
+    vAdd1.onmouseover = function () {
+        let ee = eV1.toFixed(0);
+        vAdd1.innerHTML = `${ee} $`;
+    };
+    vAdd1.onmouseout = function () {
+        vAdd1.innerHTML = `+1`;
+    };
+
+    vAdd2.onmouseover = function () {
+        let ee = eV2.toFixed(0);
+        vAdd2.innerHTML = `${ee} $`;
+    };
+    vAdd2.onmouseout = function () {
+        vAdd2.innerHTML = `+10`;
+    };
+
+    vAdd3.onmouseover = function () {
+        let ee = eV3.toFixed(0);
+        vAdd3.innerHTML = `${ee} $`;
+    };
+    vAdd3.onmouseout = function () {
+        vAdd3.innerHTML = `+100`;
+    };
+
+    vAdd4.onmouseover = function () {
+        let ee = eV4.toFixed(0);
+        vAdd4.innerHTML = `${ee} $`;
+    };
+    vAdd4.onmouseout = function () {
+        vAdd4.innerHTML = `+1000`;
+    };
+
+
+    aAdd1.onmouseover = function () {
+        let ee = aV1.toFixed(0);
+        aAdd1.innerHTML = `${ee} $`;
+    };
+    aAdd1.onmouseout = function () {
+        aAdd1.innerHTML = `+1`;
+    };
+
+    aAdd2.onmouseover = function () {
+        let ee = aV2.toFixed(0);
+        aAdd2.innerHTML = `${ee} $`;
+    };
+    aAdd2.onmouseout = function () {
+        aAdd2.innerHTML = `+10`;
+    };
+
+    aAdd3.onmouseover = function () {
+        let ee = aV3.toFixed(0);
+        aAdd3.innerHTML = `${ee} $`;
+    };
+    aAdd3.onmouseout = function () {
+        aAdd3.innerHTML = `+100`;
+    };
+
+    aAdd4.onmouseover = function () {
+        let ee = aV4.toFixed(0);
+        aAdd4.innerHTML = `${ee} $`;
+    };
+    aAdd4.onmouseout = function () {
+        aAdd4.innerHTML = `+1000`;
+    };
+
+    axAdd1.onmouseover = function () {
+        let ee = axV1.toFixed(0);
+        axAdd1.innerHTML = `${ee} $`;
+    };
+    axAdd1.onmouseout = function () {
+        axAdd1.innerHTML = `+1`;
+    };
+
+    axAdd2.onmouseover = function () {
+        let ee = axV2.toFixed(0);
+        axAdd2.innerHTML = `${ee} $`;
+    };
+    axAdd2.onmouseout = function () {
+        axAdd2.innerHTML = `+10`;
+    };
+
+    axAdd3.onmouseover = function () {
+        let ee = axV3.toFixed(0);
+        axAdd3.innerHTML = `${ee} $`;
+    };
+    axAdd3.onmouseout = function () {
+        axAdd3.innerHTML = `+100`;
+    };
+
+    axAdd4.onmouseover = function () {
+        let ee = axV4.toFixed(0);
+        axAdd4.innerHTML = `${ee} $`;
+    };
+    axAdd4.onmouseout = function () {
+        axAdd4.innerHTML = `+1000`;
+    };
+
 
 
     // able des bouttons // 
@@ -142,30 +385,46 @@ function aBtnCalc(e){
         aAdd2.disabled = true;
         aAdd3.disabled = true;
         aAdd4.disabled = true;
+        axAdd1.disabled = true;
+        axAdd2.disabled = true;
+        axAdd3.disabled = true;
+        axAdd4.disabled = true;
 
-        if (M >= 10) {
+        if (M >= eV1) {
             vAdd1.disabled = false;
         };
-        if (M >= 100) {
+        if (M >= eV2) {
             vAdd2.disabled = false;
         };
-        if (M >= 1000) {
+        if (M >= eV3) {
             vAdd3.disabled = false;
         }
-        if (M >= 10000) {
+        if (M >= eV4) {
             vAdd4.disabled = false;
         }
-        if (M >= 10000) {
+        if (M >= aV1) {
             aAdd1.disabled = false;
         }
-        if (M >= 100000) {
+        if (M >= aV2) {
             aAdd2.disabled = false;
         }
-        if (M >= 1000000) {
+        if (M >= aV3) {
             aAdd3.disabled = false;
         }
-        if (M >= 10000000) {
+        if (M >= aV4) {
             aAdd4.disabled = false;
+        }
+        if (M >= axV1) {
+            axAdd1.disabled = false;
+        }
+        if (M >= axV2) {
+            axAdd2.disabled = false;
+        }
+        if (M >= axV3) {
+            axAdd3.disabled = false;
+        }
+        if (M >= axV4) {
+            axAdd4.disabled = false;
         }
     };
 
@@ -184,7 +443,7 @@ function aBtnCalc(e){
 
     setInterval(calcV, param);
     setInterval(calcM, param);
-    
+
     showD();
 </script>
 

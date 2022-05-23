@@ -10,25 +10,34 @@
 </head>
 
 <body>
-    <div class=playableButtonsV><strong>Augmente ta vitesse</strong><br>
-        <button class=btnV id="vAdd1">+1</buttion>
-            <!--<abbr title="10m$">+1</abbr>-->
-            <button class=btnV id="vAdd2">+10</buttion>
-                <button class=btnV id="vAdd3">+100</buttion>
-                    <button class=btnA id="vAdd4">+1000</buttion>
+    <div class=playableButtons><strong>Augmente ta vitesse</strong><br>
+        <button class=btnV id="vAdd1">+1</button>
+        <!--<abbr title="10m$">+1</abbr>-->
+        <button class=btnV id="vAdd2">+10</button>
+        <button class=btnV id="vAdd3">+100</button>
+        <button class=btnA id="vAdd4">+1000</button>
     </div>
     <br>
-    <div class=playableButtonsV><strong>Augmente ton acceleration</strong><br>
-        <button class=btnA id="aAdd1">+1</buttion>
-            <button class=btnA id="aAdd2">+10</buttion>
-                <button class=btnA id="aAdd3">+100</buttion>
-                    <button class=btnA id="aAdd4">+1000</buttion>
+    <div class=playableButtons><strong>Augmente ton accélération</strong><br>
+        <button class=btnA id="aAdd1">+1</button>
+        <button class=btnA id="aAdd2">+10</button>
+        <button class=btnA id="aAdd3">+100</button>
+        <button class=btnA id="aAdd4">+1000</button>
+    </div>
+    <br>
+    <div class=playableButtons><strong>Accélère ton accélération</strong><br>
+        <button class=btnX id="xAdd1">+1</button>
+        <button class=btnX id="xAdd2">+10</button>
+        <button class=btnX id="xAdd3">+100</button>
+        <button class=btnX id="xAdd4">+1000</button>
     </div>
 
     <hr>
     <div class=counters>
         <div class=displayNb id="V">Vitesse : 1 m/s;</div>
-        <div class=displayNb id="A">Acceleration : 0 m/s²</div>
+        <div class=displayNb id="A">Accélération : 0 m/s²</div>
+        <div class=displayNb id="X">Sur Accélération : 0 m/s³</div>
+        <div class=displayNb id="G"></div>
         <div class=displayNb id="M">M</div>
         <br>
         <div class=displayNb id="D"></div>
@@ -43,16 +52,24 @@
 
 
     var D = 0;
-    var V = 1; 
+    var V = 1;
     var A = 0;
     var M = 0;
-    var C = 0;
+    var X = 0;
+
+    // données physiques réelles//
+    // var C = 0;
+    // var G = 0;
+    // var K = 0;
+    // var AL = 0;
 
     const divD = document.getElementById("D");
     const divV = document.getElementById("V");
     const divM = document.getElementById("M");
     const divA = document.getElementById("A");
     const divC = document.getElementById("C");
+    const divX = document.getElementById("X");
+    const divG = document.getElementById("G");
 
 
     const vAdd1 = document.getElementById("vAdd1");
@@ -63,6 +80,10 @@
     const aAdd2 = document.getElementById("aAdd2");
     const aAdd3 = document.getElementById("aAdd3");
     const aAdd4 = document.getElementById("aAdd4");
+    const xAdd1 = document.getElementById("xAdd1");
+    const xAdd2 = document.getElementById("xAdd2");
+    const xAdd3 = document.getElementById("xAdd3");
+    const xAdd4 = document.getElementById("xAdd4");
 
 
 
@@ -71,32 +92,27 @@
 
     function showVariables() {
         V = V + A;
+        A = A + X;
         M = M + V;
         D = D + V;
+        C = V / 3e8;
         G = A / 9.8;
         K = V * 3.6;
-        C = V / 3e8;
         AL = D / 9.46e15;
-        let VV = numberWithSpace(V)
-        divV.innerHTML = `Vitesse : ${VV} m/s`;
-        let MM = numberWithSpace(M)
-        divM.innerHTML = `Monney : ${MM} $`;
-        let GG = numberWithSpace(G);
-        var AA = numberWithSpace(A);
-        divA.innerHTML = `Acceleration : ${AA} m/s² <br>-->   ${GG} G`;
-        let CC = numberWithSpace(C);
-        let KK = '';
-        if (K < 1000) {
-            KK = K.toFixed(2)
-        } else {
-            KK = numberWithSpace(K.toFixed(0))
-        }
-        divC.innerHTML = `Vitesse : ${CC} c <br>-->   ${KK} km/h`;
-        let DD = numberWithSpace(D);
-        let AAL = numberWithSpace(AL)
-        divD.innerHTML = `Distance totale parcourue : ${DD} m  <br>--> ${AAL} AL`;
+        showALL();
         checkBut();
     };
+
+    function showALL(){
+        showA();
+        showC();
+        showD();
+        showG();
+        showM();
+        showV();
+        showX();
+        checkBut();
+    }
 
     function numberWithSpace(x) {
         if (x > 1000) {
@@ -105,6 +121,60 @@
             return x
         }
     };
+
+    function showA() {
+        var AA = numberWithSpace(A);
+        divA.innerHTML = `Accélération : ${AA} m/s²`
+    };
+
+    function showC() {
+        let CC = numberWithSpace(C);
+        let KK = '';
+        if (K < 1000) {
+            KK = K.toFixed(2)
+        } else {
+            KK = numberWithSpace(K.toFixed(0))
+        }
+        divC.innerHTML = `Vitesse : ${CC} c <br>-->   ${KK} km/h`;
+    };
+
+    function showD() {
+        let DD = numberWithSpace(D);
+        let AAL = numberWithSpace(AL);
+        if (D < 1e9) {
+            divD.innerHTML = `Distance totale parcourue : ${DD} m  <br>--> ${AAL} AL`;
+        }else{
+            let Dkm = D/1000;
+            let DDkm =numberWithSpace(Dkm.toFixed(0));
+            divD.innerHTML = `Distance totale parcourue : ${DDkm} km  <br>--> ${AAL} AL`;
+        }
+    };
+
+    function showG() {
+        let GG = G;
+        if (G > 1) {
+            GG = G.toFixed(2)
+        }
+        if (G > 1000) {
+            GG = numberWithSpace(G.toFixed(0))
+        }
+        divG.innerHTML = `--> ${GG} G`
+    };
+
+    function showM() {
+        let MM = numberWithSpace(M);
+        divM.innerHTML = `Monney : ${MM} $`
+    };
+
+    function showV() {
+        let VV = numberWithSpace(V);
+        divV.innerHTML = `Vitesse : ${VV} m/s`
+    };
+
+    function showX() {
+        let XX = numberWithSpace(X);
+        divX.innerHTML = `Sur Accélération : ${XX} m/s³`
+    }
 
 
 
@@ -119,26 +189,28 @@
         if (M > e) {
             V = V + e / 10;
             M = M - e;
-            let VV = numberWithSpace(V)
-            let MM = numberWithSpace(M)
-            divV.innerHTML = `Vitesse : ${VV} m/s`;
-            divM.innerHTML = `Monney : ${MM} $`;
-            checkBut();
+            showALL();     
         }
     };
 
     function aBtnCalc(e) {
         if (M > e) {
-            A = A + e / 10e3;
+            A = A + e / 1e4;
             M = M - e;
-            let MM = numberWithSpace(M)
-            let GG = numberWithSpace(G);
-            let AA = numberWithSpace(A);
-            divA.innerHTML = `Acceleration : ${AA} m/s² <br>-->   ${GG} G`;
-            divM.innerHTML = `Monney : ${MM} $`;
-            checkBut();
+            showALL();  ;
         }
     };
+
+    function xBtnCalc(e) {
+        if (M > e) {
+            X = X + e / 1e7;
+            M = M - e;
+            showALL();  
+        }
+    };
+
+
+    // On click
 
     vAdd1.onclick = function () {
         vBtnCalc(x)
@@ -166,6 +238,19 @@
         aBtnCalc(Math.pow(x, 7))
     };
 
+    xAdd1.onclick = function () {
+        xBtnCalc(Math.pow(x, 7))
+    };
+    xAdd2.onclick = function () {
+        xBtnCalc(Math.pow(x, 8))
+    };
+    xAdd3.onclick = function () {
+        xBtnCalc(Math.pow(x, 9))
+    };
+    xAdd4.onclick = function () {
+        xBtnCalc(Math.pow(x, 10))
+    };
+
 
     // able des bouttons // 
 
@@ -178,6 +263,10 @@
         aAdd2.disabled = true;
         aAdd3.disabled = true;
         aAdd4.disabled = true;
+        xAdd1.disabled = true;
+        xAdd2.disabled = true;
+        xAdd3.disabled = true;
+        xAdd4.disabled = true;
 
         if (M >= 10) {
             vAdd1.disabled = false;
@@ -188,20 +277,32 @@
         if (M >= 1000) {
             vAdd3.disabled = false;
         }
-        if (M >= 10000) {
+        if (M >= 1e4) {
             vAdd4.disabled = false;
         }
-        if (M >= 10000) {
+        if (M >= 1e4) {
             aAdd1.disabled = false;
         }
-        if (M >= 100000) {
+        if (M >= 1e5) {
             aAdd2.disabled = false;
         }
-        if (M >= 1000000) {
+        if (M >= 1e6) {
             aAdd3.disabled = false;
         }
-        if (M >= 10000000) {
+        if (M >= 1e7) {
             aAdd4.disabled = false;
+        }
+        if (M >= 1e7) {
+            xAdd1.disabled = false;
+        }
+        if (M >= 1e8) {
+            xAdd2.disabled = false;
+        }
+        if (M >= 1e9) {
+            xAdd3.disabled = false;
+        }
+        if (M >= 1e10) {
+            xAdd4.disabled = false;
         }
     };
 
@@ -211,8 +312,9 @@
 
 
     // temps de la seconde ! //
-   // setInterval(checkBut, param);
+    // setInterval(checkBut, param);
     setInterval(showVariables, param);
+    ///////////////////////////////
 </script>
 
 </html>
@@ -221,7 +323,7 @@
         display: flexbox;
     }
 
-    .playableButtonsV {
+    .playableButtons {
         display: flexbox;
     }
 </style>

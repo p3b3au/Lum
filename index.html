@@ -103,70 +103,32 @@
 
 
     // fonction des boutons //
-
-    vAdd1.onclick = function () {
-        if (M > 10) {
-            V = V + 1,
-                M = M - 10,
+    const x = 10;
+function vBtnCalc(e){
+    if (M > e) {
+            V = V + e/10,
+                M = M - e,
                 showV();
             showM()
         }
-    };
-    vAdd2.onclick = function () {
-        if (M > 100) {
-            V = V + 10,
-                M = M - 100,
-                showV();
-            showM()
+};
+function aBtnCalc(e){
+    if (M > e) {
+            A = A + e/10e3,
+                M = M - e,
+                showA()
         }
-    };
-    vAdd3.onclick = function () {
-        if (M > 1000) {
-            V = V + 100,
-                M = M - 1000,
-                showV();
-            showM()
-        }
-    };
-    vAdd4.onclick = function () {
-        if (M > 10000) {
-            V = V + 1000,
-                M = M - 10000,
-                showV();
-            showM()
-        }
-    };
+};
 
+    vAdd1.onclick = function(){ vBtnCalc(x)};
+    vAdd2.onclick = function(){ vBtnCalc(Math.pow(x, 2))};
+    vAdd3.onclick = function(){ vBtnCalc(Math.pow(x, 3))};
+    vAdd4.onclick = function(){ vBtnCalc(Math.pow(x, 4))};
 
-    aAdd1.onclick = function () {
-        if (M > 10000) {
-            A = A + 1,
-                M = M - 10000,
-                showA()
-        }
-    };
-    aAdd2.onclick = function () {
-        if (M > 100000) {
-            A = A + 10,
-                M = M - 100000,
-                showA()
-        }
-    };
-    aAdd3.onclick = function () {
-        if (M > 1000000) {
-            A = A + 100,
-                M = M - 1000000,
-                showA()
-        }
-    };
-    aAdd4.onclick = function () {
-        if (M > 10000000) {
-            A = A + 1000,
-                M = M - 10000000,
-                showA()
-        }
-    };
-
+    aAdd1.onclick = function () {aBtnCalc(Math.pow(x, 4))};
+    aAdd2.onclick = function () {aBtnCalc(Math.pow(x, 5))};
+    aAdd3.onclick = function () {aBtnCalc(Math.pow(x, 6))};
+    aAdd4.onclick = function () {aBtnCalc(Math.pow(x, 7))};
 
 
     // able des bouttons // 
@@ -181,7 +143,7 @@
         aAdd3.disabled = true;
         aAdd4.disabled = true;
 
-        if (M >= 9) {
+        if (M >= 10) {
             vAdd1.disabled = false;
         };
         if (M >= 100) {
@@ -213,7 +175,7 @@
 
 
     // temps de la seconde ! //
-
+    setInterval(checkBut, param);
     setInterval(showV, param);
     setInterval(showM, param);
 
@@ -222,7 +184,7 @@
 
     setInterval(calcV, param);
     setInterval(calcM, param);
-    setInterval(checkBut, param);
+    
     showD();
 </script>
 

@@ -43,7 +43,7 @@
 
 
     var D = 0;
-    var V = 1;
+    var V = 1; 
     var A = 0;
     var M = 0;
     var C = 0;
@@ -67,68 +67,104 @@
 
 
     // les valeurs variables //
-    function calcV() {
-        V = V + A
+
+
+    function showVariables() {
+        V = V + A;
+        M = M + V;
+        D = D + V;
+        G = A / 9.8;
+        K = V * 3.6;
+        C = V / 3e8;
+        AL = D / 9.46e15;
+        let VV = numberWithSpace(V)
+        divV.innerHTML = `Vitesse : ${VV} m/s`;
+        let MM = numberWithSpace(M)
+        divM.innerHTML = `Monney : ${MM} $`;
+        let GG = numberWithSpace(G);
+        var AA = numberWithSpace(A);
+        divA.innerHTML = `Acceleration : ${AA} m/s² <br>-->   ${GG} G`;
+        let CC = numberWithSpace(C);
+        let KK = '';
+        if (K < 1000) {
+            KK = K.toFixed(2)
+        } else {
+            KK = numberWithSpace(K.toFixed(0))
+        }
+        divC.innerHTML = `Vitesse : ${CC} c <br>-->   ${KK} km/h`;
+        let DD = numberWithSpace(D);
+        let AAL = numberWithSpace(AL)
+        divD.innerHTML = `Distance totale parcourue : ${DD} m  <br>--> ${AAL} AL`;
+        checkBut();
     };
 
-    function showV() {
-        divV.innerHTML = `Vitesse : ${V} m/s`;
+    function numberWithSpace(x) {
+        if (x > 1000) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+        } else {
+            return x
+        }
     };
 
-    function calcM() {
-        M = M + V
-    };
 
-    function showM() {
-        divM.innerHTML = `Monney : ${M} $`;
-    };
 
-    function showA() {
-        G = A / 9.8,
-            divA.innerHTML = `Acceleration : ${A} m/s² <br>-->   ${G} G`;
-    };
 
-    // les valeurs statiques //
-    function showC() {
-        K = V * 3.6
-        C = V / 3e8,
-            divC.innerHTML = `Vitesse : ${C} c <br>-->   ${K} km/h`;
-    };
 
-    function showD() {
-        D = D + V,
-            AL = D / 9.46e15,
-            divD.innerHTML = `Distance totale parcourue : ${D} m  <br>--> ${AL} AL`;
-    };
 
 
     // fonction des boutons //
     const x = 10;
-function vBtnCalc(e){
-    if (M > e) {
-            V = V + e/10,
-                M = M - e,
-                showV();
-            showM()
-        }
-};
-function aBtnCalc(e){
-    if (M > e) {
-            A = A + e/10e3,
-                M = M - e,
-                showA()
-        }
-};
 
-    vAdd1.onclick = function(){ vBtnCalc(x)};
-    vAdd2.onclick = function(){ vBtnCalc(Math.pow(x, 2))};
-    vAdd3.onclick = function(){ vBtnCalc(Math.pow(x, 3))};
-    vAdd4.onclick = function(){ vBtnCalc(Math.pow(x, 4))};
+    function vBtnCalc(e) {
+        if (M > e) {
+            V = V + e / 10;
+            M = M - e;
+            let VV = numberWithSpace(V)
+            let MM = numberWithSpace(M)
+            divV.innerHTML = `Vitesse : ${VV} m/s`;
+            divM.innerHTML = `Monney : ${MM} $`;
+            checkBut();
+        }
+    };
 
-    aAdd1.onclick = function () {aBtnCalc(Math.pow(x, 4))};
-    aAdd2.onclick = function () {aBtnCalc(Math.pow(x, 5))};
-    aAdd3.onclick = function () {aBtnCalc(Math.pow(x, 6))};
-    aAdd4.onclick = function () {aBtnCalc(Math.pow(x, 7))};
+    function aBtnCalc(e) {
+        if (M > e) {
+            A = A + e / 10e3;
+            M = M - e;
+            let MM = numberWithSpace(M)
+            let GG = numberWithSpace(G);
+            let AA = numberWithSpace(A);
+            divA.innerHTML = `Acceleration : ${AA} m/s² <br>-->   ${GG} G`;
+            divM.innerHTML = `Monney : ${MM} $`;
+            checkBut();
+        }
+    };
+
+    vAdd1.onclick = function () {
+        vBtnCalc(x)
+    };
+    vAdd2.onclick = function () {
+        vBtnCalc(Math.pow(x, 2))
+    };
+    vAdd3.onclick = function () {
+        vBtnCalc(Math.pow(x, 3))
+    };
+    vAdd4.onclick = function () {
+        vBtnCalc(Math.pow(x, 4))
+    };
+
+    aAdd1.onclick = function () {
+        aBtnCalc(Math.pow(x, 4))
+    };
+    aAdd2.onclick = function () {
+        aBtnCalc(Math.pow(x, 5))
+    };
+    aAdd3.onclick = function () {
+        aBtnCalc(Math.pow(x, 6))
+    };
+    aAdd4.onclick = function () {
+        aBtnCalc(Math.pow(x, 7))
+    };
 
 
     // able des bouttons // 
@@ -175,17 +211,8 @@ function aBtnCalc(e){
 
 
     // temps de la seconde ! //
-    setInterval(checkBut, param);
-    setInterval(showV, param);
-    setInterval(showM, param);
-
-    setInterval(showD, param);
-    setInterval(showC, param);
-
-    setInterval(calcV, param);
-    setInterval(calcM, param);
-    
-    showD();
+   // setInterval(checkBut, param);
+    setInterval(showVariables, param);
 </script>
 
 </html>

@@ -11,15 +11,18 @@
 
 <body>
     <div class=playableButtonsV><strong>Augmente ta vitesse</strong><br>
-        <button class=btnV id="vAdd1">+1</buttion> <!--<abbr title="10m$">+1</abbr>-->
-            <button class=btnV id="vAdd5">+5</buttion>
-                <button class=btnV id="vAdd10">+10</buttion>
+        <button class=btnV id="vAdd1">+1</buttion>
+            <!--<abbr title="10m$">+1</abbr>-->
+            <button class=btnV id="vAdd2">+10</buttion>
+                <button class=btnV id="vAdd3">+100</buttion>
+                    <button class=btnA id="vAdd4">+1000</buttion>
     </div>
     <br>
     <div class=playableButtonsV><strong>Augmente ton acceleration</strong><br>
         <button class=btnA id="aAdd1">+1</buttion>
-        <button class=btnA id="aAdd5">+5</buttion>
-        <button class=btnA id="aAdd10">+10</buttion>
+            <button class=btnA id="aAdd2">+10</buttion>
+                <button class=btnA id="aAdd3">+100</buttion>
+                    <button class=btnA id="aAdd4">+1000</buttion>
     </div>
 
     <hr>
@@ -52,123 +55,173 @@
     const divC = document.getElementById("C");
 
 
-    const vAdd10 = document.getElementById("vAdd10");
-    const vAdd5 = document.getElementById("vAdd5");
     const vAdd1 = document.getElementById("vAdd1");
-    const aAdd10 = document.getElementById("aAdd10");
-    const aAdd5 = document.getElementById("aAdd5");
+    const vAdd2 = document.getElementById("vAdd2");
+    const vAdd3 = document.getElementById("vAdd3");
+    const vAdd4 = document.getElementById("vAdd4");
     const aAdd1 = document.getElementById("aAdd1");
+    const aAdd2 = document.getElementById("aAdd2");
+    const aAdd3 = document.getElementById("aAdd3");
+    const aAdd4 = document.getElementById("aAdd4");
 
 
 
+    // les valeurs variables //
+    function calcV() {
+        V = V + A
+    };
 
-    function showD() {
-        D = D + V
-        // console.log(D);
-        divD.textContent = `Distance totale parcourue : ${D} m`;
+    function showV() {
+        divV.innerHTML = `Vitesse : ${V} m/s`;
+    };
+
+    function calcM() {
+        M = M + V
     };
 
     function showM() {
-        M = M + V
-        divM.textContent = `Mètres utilisables : ${M} m$`;
-    }
-
-    function showV() {
-        V = V + A,
-            divV.textContent = `Vitesse : ${V} m/s`;
-            
+        divM.innerHTML = `Monney : ${M} $`;
     };
 
+    function showA() {
+        G = A / 9.8,
+            divA.innerHTML = `Acceleration : ${A} m/s² <br>-->   ${G} G`;
+    };
+
+    // les valeurs statiques //
     function showC() {
-        C = V/3000000,
-            divC.textContent = `Célérité : ${C} %`;
+        K = V * 3.6
+        C = V / 3e8,
+            divC.innerHTML = `Vitesse : ${C} c <br>-->   ${K} km/h`;
+    };
+
+    function showD() {
+        D = D + V,
+            AL = D / 9.46e15,
+            divD.innerHTML = `Distance totale parcourue : ${D} m  <br>--> ${AL} AL`;
     };
 
 
-
-
-
+    // fonction des boutons //
 
     vAdd1.onclick = function () {
-        if(M>10){V = V + 1,
-        M = M - 10,
-        divV.textContent = `Vitesse : ${V} m/s`;
-        divM.textContent = `Mètres utilisables : ${M} m$`;}
+        if (M > 10) {
+            V = V + 1,
+                M = M - 10,
+                showV();
+            showM()
+        }
     };
-    vAdd5.onclick = function () {
-        if(M>100){ V = V + 5,
-        M = M - 100,
-        divV.textContent = `Vitesse : ${V} m/s`;
-        divM.textContent = `Mètres utilisables : ${M} m$`;}
+    vAdd2.onclick = function () {
+        if (M > 100) {
+            V = V + 10,
+                M = M - 100,
+                showV();
+            showM()
+        }
     };
-    vAdd10.onclick = function () {
-        if(M>1000){ V = V + 10,
-        M = M - 1000,
-        divV.textContent = `Vitesse : ${V} m/s`;
-        divM.textContent = `Mètres utilisables : ${M} m$`;}
+    vAdd3.onclick = function () {
+        if (M > 1000) {
+            V = V + 100,
+                M = M - 1000,
+                showV();
+            showM()
+        }
+    };
+    vAdd4.onclick = function () {
+        if (M > 10000) {
+            V = V + 1000,
+                M = M - 10000,
+                showV();
+            showM()
+        }
     };
 
 
     aAdd1.onclick = function () {
-        if(M>10000){ A = A + 1,
-            M = M - 10000,
-            divA.textContent = `Acceleration : ${A} m/s²`;}
+        if (M > 10000) {
+            A = A + 1,
+                M = M - 10000,
+                showA()
+        }
     };
-    aAdd5.onclick = function () {
-        if(M>100000){ A = A + 5,
-            M = M - 100000,
-            divA.textContent = `Acceleration : ${A} m/s²`;}
+    aAdd2.onclick = function () {
+        if (M > 100000) {
+            A = A + 10,
+                M = M - 100000,
+                showA()
+        }
     };
-    aAdd10.onclick = function () {
-        if(M>1000000){ A = A + 10,
-            M = M - 1000000,
-            divA.textContent = `Acceleration : ${A} m/s²`;}
-
+    aAdd3.onclick = function () {
+        if (M > 1000000) {
+            A = A + 100,
+                M = M - 1000000,
+                showA()
+        }
+    };
+    aAdd4.onclick = function () {
+        if (M > 10000000) {
+            A = A + 1000,
+                M = M - 10000000,
+                showA()
+        }
     };
 
 
 
+    // able des bouttons // 
 
     function checkBut() {
-        vAdd10.disabled = true;
-        vAdd5.disabled = true;
         vAdd1.disabled = true;
-        aAdd10.disabled = true;
-        aAdd5.disabled = true;
+        vAdd2.disabled = true;
+        vAdd3.disabled = true;
+        vAdd4.disabled = true;
         aAdd1.disabled = true;
+        aAdd2.disabled = true;
+        aAdd3.disabled = true;
+        aAdd4.disabled = true;
 
         if (M >= 9) {
             vAdd1.disabled = false;
         };
         if (M >= 100) {
-            vAdd5.disabled = false;
+            vAdd2.disabled = false;
         };
         if (M >= 1000) {
-            vAdd10.disabled = false;
+            vAdd3.disabled = false;
+        }
+        if (M >= 10000) {
+            vAdd4.disabled = false;
         }
         if (M >= 10000) {
             aAdd1.disabled = false;
         }
         if (M >= 100000) {
-            aAdd5.disabled = false;
+            aAdd2.disabled = false;
         }
         if (M >= 1000000) {
-            aAdd10.disabled = false;
+            aAdd3.disabled = false;
+        }
+        if (M >= 10000000) {
+            aAdd4.disabled = false;
         }
     };
 
 
 
 
-  
 
 
+    // temps de la seconde ! //
 
     setInterval(showV, param);
     setInterval(showM, param);
-    
+
     setInterval(showD, param);
     setInterval(showC, param);
+
+    setInterval(calcV, param);
+    setInterval(calcM, param);
     setInterval(checkBut, param);
     showD();
 </script>

@@ -1,11 +1,6 @@
-function globalTime(param){
-    setTimeout(addOne, param)
-}
+// ameliorer le code !!
+// accelere ton acceleration
+// mesure du temps de partie
+// cookies
 
-const D = 0;
-
-function addOne(){
- D += 1
-}
-
-console.log(D);
+// jolifier les nombres

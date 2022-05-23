@@ -242,7 +242,7 @@
                 M = M - axV1,
                 axV1 = axV1 + 1e6,
                 calcA()
-                showA()
+                showAX()
         }
     };
     axAdd2.onclick = function () {
@@ -251,7 +251,7 @@
                 M = M - axV2,
                 axV2 = axV2 + 1e7,
                 calcA()
-                showA()
+                showAX()
         }
     };
     axAdd3.onclick = function () {
@@ -260,7 +260,7 @@
                 M = M - axV3,
                 axV3 = axV3 + 1e8,
                 calcA()
-                showA()
+                showAX()
         }
     };
     axAdd4.onclick = function () {
@@ -269,7 +269,7 @@
                 M = M - axV4,
                 axV4 = axV4 + 1e9,
                 calcA()
-                showA()
+                showAX()
         }
     };
 
@@ -437,6 +437,7 @@
     setInterval(checkBut, param);
     setInterval(showV, param);
     setInterval(showM, param);
+    setInterval(showA, param);
 
     setInterval(showD, param);
     setInterval(showC, param);

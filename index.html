@@ -48,11 +48,10 @@
     </div>
 
     <hr>
-    <div id=events>
-        <div class=event id="event1"></div><br>
-        <div class=event id="event2"></div><br>
-        <div class=event id="event3"></div><br>
-        <div class=event id="event4"></div><br>
+    <div class="event-log">
+        <label></label>
+        <textarea readonly id="event-log-contents" rows="8" cols="30"></textarea>
+      </div>
         <br>
         <div class=event id="T"></div><br>
 
@@ -60,8 +59,6 @@
 </body>
 
 <script>
-
-
     const param = 1000;
 
 
@@ -99,14 +96,15 @@
     const xAdd3 = document.getElementById("xAdd3");
     const xAdd4 = document.getElementById("xAdd4");
 
-    const event1 = document.getElementById("event1");
-    const event2 = document.getElementById("event2");
-    const event3 = document.getElementById("event3");
-    const event4 = document.getElementById("event4");
+    // const event1 = document.getElementById('event1');
+    // const event2 = document.getElementById("event2");
+    // const event3 = document.getElementById("event3");
+    // const event4 = document.getElementById("event4");
+    const log = document.getElementById("event-log-contents");
     const time1 = document.getElementById("T");
 
 
-timer();
+    timer();
 
     // les valeurs variables //
 
@@ -132,7 +130,7 @@ timer();
         showV();
         showX();
         showTime();
-        logEvent();
+       logEvent();
         checkBut();
     }
 
@@ -197,9 +195,51 @@ timer();
         let XX = numberWithSpace(X);
         divX.innerHTML = `Sur Accélération : ${XX} m/s³`
     }
+/////////////////////// LOG //////////////////////
+var something = (function() {
+    var executed = false;
+    return function() {
+        if (!executed) {
+            executed = true;
+            log.textContent = `distance 10000000\n` + log.textContent;
+        }
+    };
+})();
+var somethin = (function() {
+    var executed = false;
+    return function() {
+        if (!executed) {
+            executed = true;
+            log.textContent = `youhou\n0` + log.textContent;
+        }
+    };
+})();
+var someth = (function() {
+    var executed = false;
+    return function() {
+        if (!executed) {
+            executed = true;
+            log.textContent = `vitesse 10000000\n` + log.textContent;
+        }
+    };
+})();
+
+function logEvent(){
+    if (D>3){ something()}
+    if (V>10){ someth()}
+    if (D>200){ somethin()}
+}
+
+//// LOG /////////////////////////////
 
 
 
+
+                   
+
+
+
+    
 
 
 
@@ -337,13 +377,6 @@ timer();
     // setInterval(checkBut, param);
     setInterval(showVariables, param);
     ///////////////////////////////
-
-
-
-
-
-
-  
 </script>
 
 </html>

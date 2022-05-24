@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="log.js" type="text/javascript"></script>
+    <script src="timer.js" type="text/javascript"></script>
+    <title>LuMax</title>
 
 </head>
 
 <body>
+    <h2>Atteins la vitesse de la Lumière</h2>
     <div class=playableButtons><strong>Augmente ta vitesse</strong><br>
         <button class=btnV id="vAdd1">+1</button>
         <!--<abbr title="10m$">+1</abbr>-->
@@ -42,12 +45,23 @@
         <br>
         <div class=displayNb id="D"></div>
         <div class=displayNb id="C">% célérité</div>
-
     </div>
 
+    <hr>
+    <div id=events>
+        <div class=event id="event1"></div><br>
+        <div class=event id="event2"></div><br>
+        <div class=event id="event3"></div><br>
+        <div class=event id="event4"></div><br>
+        <br>
+        <div class=event id="T"></div><br>
+
+    </div>
 </body>
 
 <script>
+
+
     const param = 1000;
 
 
@@ -85,10 +99,16 @@
     const xAdd3 = document.getElementById("xAdd3");
     const xAdd4 = document.getElementById("xAdd4");
 
+    const event1 = document.getElementById("event1");
+    const event2 = document.getElementById("event2");
+    const event3 = document.getElementById("event3");
+    const event4 = document.getElementById("event4");
+    const time1 = document.getElementById("T");
 
+
+timer();
 
     // les valeurs variables //
-
 
     function showVariables() {
         V = V + A;
@@ -103,7 +123,7 @@
         checkBut();
     };
 
-    function showALL(){
+    function showALL() {
         showA();
         showC();
         showD();
@@ -111,6 +131,8 @@
         showM();
         showV();
         showX();
+        showTime();
+        logEvent();
         checkBut();
     }
 
@@ -143,9 +165,9 @@
         let AAL = numberWithSpace(AL);
         if (D < 1e9) {
             divD.innerHTML = `Distance totale parcourue : ${DD} m  <br>--> ${AAL} AL`;
-        }else{
-            let Dkm = D/1000;
-            let DDkm =numberWithSpace(Dkm.toFixed(0));
+        } else {
+            let Dkm = D / 1000;
+            let DDkm = numberWithSpace(Dkm.toFixed(0));
             divD.innerHTML = `Distance totale parcourue : ${DDkm} km  <br>--> ${AAL} AL`;
         }
     };
@@ -189,7 +211,7 @@
         if (M > e) {
             V = V + e / 10;
             M = M - e;
-            showALL();     
+            showALL();
         }
     };
 
@@ -197,7 +219,7 @@
         if (M > e) {
             A = A + e / 1e4;
             M = M - e;
-            showALL();  ;
+            showALL();;
         }
     };
 
@@ -205,7 +227,7 @@
         if (M > e) {
             X = X + e / 1e7;
             M = M - e;
-            showALL();  
+            showALL();
         }
     };
 
@@ -315,6 +337,13 @@
     // setInterval(checkBut, param);
     setInterval(showVariables, param);
     ///////////////////////////////
+
+
+
+
+
+
+  
 </script>
 
 </html>
@@ -325,5 +354,10 @@
 
     .playableButtons {
         display: flexbox;
+    }
+
+    #event {
+        font-family: bold;
+        align-content: center;
     }
 </style>

@@ -193,14 +193,15 @@
 
     const logInfo = [
         ['d', 3, 'Distance 3'],
+        ['d', 10000, 'Tu as traversé Lyon'],
         ['d', 10, 'Distance 10'],
         ['d', 20, 'Distance 20'],
         ['v', 10, 'vitesse 10'],
         ['v', 20, 'vitesse 20'],
         ['m', 100, 'monney 100'],
         ['m', 1000, 'monney 1000'],
-        ['a', 0, 'accelere !!!'],
-        ['a', 9.8, ' 1G !!'],
+        ['a', 10, 'accelere !!!'],
+        ['a', 1, ' 1G !!'],
         ['v', 300000000, 'vitesse de la lumiere'],
 
     ];
@@ -213,25 +214,30 @@
             if (i0 == 'd') {
                 if (D > i1) {
                     log.textContent = `${i3}\n` + log.textContent;
-                    logInfo.shift()
+                    logInfo.splice(i, 1); 
+                    console.log(logInfo)
+
                 }
             }
             if (i0 == 'v') {
                 if (V > i1) {
                     log.textContent = `${i3}\n` + log.textContent;
-                    logInfo.shift()
+                    logInfo.splice(i, 1); 
+                    console.log(logInfo)
                 }
             }
             if (i0 == 'a') {
                 if (A > i1) {
                     log.textContent = `${i3}\n` + log.textContent;
-                    logInfo.shift()
+                    logInfo.splice(i, 1); 
+                    console.log(logInfo)
                 }
             }
             if (i0 == 'm') {
                 if (M > i1) {
                     log.textContent = `${i3}\n` + log.textContent;
-                    logInfo.shift()
+                    logInfo.splice(i, 1); 
+                    console.log(logInfo)
                 }
             }
         }

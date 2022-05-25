@@ -50,10 +50,10 @@
     <hr>
     <div class="event-log">
         <label></label>
-        <textarea readonly id="event-log-contents" rows="8" cols="30"></textarea>
-      </div>
-        <br>
-        <div class=event id="T"></div><br>
+        <textarea readonly id="log-contents" rows="8" cols="30"></textarea>
+    </div>
+    <br>
+    <div class=event id="T"></div><br>
 
     </div>
 </body>
@@ -67,12 +67,6 @@
     var A = 0;
     var M = 0;
     var X = 0;
-
-    // données physiques réelles//
-    // var C = 0;
-    // var G = 0;
-    // var K = 0;
-    // var AL = 0;
 
     const divD = document.getElementById("D");
     const divV = document.getElementById("V");
@@ -96,15 +90,12 @@
     const xAdd3 = document.getElementById("xAdd3");
     const xAdd4 = document.getElementById("xAdd4");
 
-    // const event1 = document.getElementById('event1');
-    // const event2 = document.getElementById("event2");
-    // const event3 = document.getElementById("event3");
-    // const event4 = document.getElementById("event4");
-    const log = document.getElementById("event-log-contents");
+    const log = document.getElementById("log-contents");
     const time1 = document.getElementById("T");
 
 
     timer();
+
 
     // les valeurs variables //
 
@@ -130,8 +121,8 @@
         showV();
         showX();
         showTime();
-       logEvent();
         checkBut();
+        logTest();
     }
 
     function numberWithSpace(x) {
@@ -194,52 +185,106 @@
     function showX() {
         let XX = numberWithSpace(X);
         divX.innerHTML = `Sur Accélération : ${XX} m/s³`
+    };
+
+
+
+    /////////////////////// LOG //////////////////////
+
+    const logInfo = [
+        ['d', 3, 'Distance 3'],
+        ['d', 10, 'Distance 10'],
+        ['d', 20, 'Distance 20'],
+        ['v', 10, 'vitesse 10'],
+        ['v', 20, 'vitesse 20'],
+        ['m', 100, 'monney 100'],
+        ['m', 1000, 'monney 1000'],
+        ['a', 0, 'accelere !!!'],
+        ['a', 9.8, ' 1G !!'],
+        ['v', 300000000, 'vitesse de la lumiere'],
+
+    ];
+
+    function logTest() {
+        for (i = 0; i < logInfo.length; i++) {
+            let i0 = logInfo[i][0]
+            let i1 = logInfo[i][1]
+            let i3 = logInfo[i][2]
+            if (i0 == 'd') {
+                if (D > i1) {
+                    log.textContent = `${i3}\n` + log.textContent;
+                    logInfo.shift()
+                }
+            }
+            if (i0 == 'v') {
+                if (V > i1) {
+                    log.textContent = `${i3}\n` + log.textContent;
+                    logInfo.shift()
+                }
+            }
+            if (i0 == 'a') {
+                if (A > i1) {
+                    log.textContent = `${i3}\n` + log.textContent;
+                    logInfo.shift()
+                }
+            }
+            if (i0 == 'm') {
+                if (M > i1) {
+                    log.textContent = `${i3}\n` + log.textContent;
+                    logInfo.shift()
+                }
+            }
+        }
+
+
+        if (V > 300000000) {
+            alert(`tu as gagné !!!!!!!!!!!!!!! \n en ${showTime()}`);
+            storeScore()
+        }
     }
-/////////////////////// LOG //////////////////////
-var something = (function() {
-    var executed = false;
-    return function() {
-        if (!executed) {
-            executed = true;
-            log.textContent = `distance 10000000\n` + log.textContent;
-        }
+
+    //// LOG END /////////////////////////////
+
+
+    /////////////////// timer ////////////////////
+    function timer() {
+        window.onload = storeTime
     };
-})();
-var somethin = (function() {
-    var executed = false;
-    return function() {
-        if (!executed) {
-            executed = true;
-            log.textContent = `youhou\n0` + log.textContent;
-        }
+
+
+    function storeTime() {
+        let T0 = Date.now();
+        localStorage.setItem('tTime', T0);
+        console.log('Temps stocké')
     };
-})();
-var someth = (function() {
-    var executed = false;
-    return function() {
-        if (!executed) {
-            executed = true;
-            log.textContent = `vitesse 10000000\n` + log.textContent;
-        }
+
+    function storeScore() {
+        let tEnd = Date.now();
+        localStorage.setItem('End', tEnd);
+        console.log('Score stocké')
     };
-})();
-
-function logEvent(){
-    if (D>3){ something()}
-    if (V>10){ someth()}
-    if (D>200){ somethin()}
-}
-
-//// LOG /////////////////////////////
 
 
+    function showTime() {
+        if (localStorage.getItem('tTime')) {
+            T0 = localStorage.getItem('tTime')
+            let now = Date.now();
+            let TT = (now - T0) / 60000;
+            var TTT = numberWithSpace(TT.toFixed(0))
+            var sec = ((now - T0) - (now - T0) / 60000) / 1000;
+            var Ssec = sec.toFixed(0)
+            return `${TTT} minutes et ${Ssec} secondes`;
+        } else {
+            return 'on a perdu ton temps ...';
+        }
+    }
+    /////////////////////////// timer end ///////////////
 
 
-                   
 
 
 
-    
+
 
 
 

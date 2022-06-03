@@ -65,7 +65,7 @@
     var D = 0; // Distance totale affichée
     var V = 1; // Vitesse affichée
     var A = 0; // Accérélarion affichée
-    var M = 0; // Monney affichée (D-coût des boutons)
+    var M = 0; // Money affichée (D-coût des boutons)
     var X = 0; // Accélération² affichée
 
     const divD = document.getElementById("D");
@@ -175,7 +175,7 @@
 
     function showM() {
         let MM = numberWithSpace(M);
-        divM.innerHTML = `Monney : ${MM} $`
+        divM.innerHTML = `Money : ${MM} $`
     };
 
     function showV() {
@@ -199,14 +199,14 @@
         ['d', 20, 'Distance 20'],
         ['v', 10, 'vitesse 10'],
         ['v', 20, 'vitesse 20'],
-        ['m', 100, 'monney 100'],
-        ['m', 1000, 'monney 1000'],
-        ['m', 10000, 'monney 10 000'],
-        ['m', 100000, 'monney 100 000'],
-        ['m', 1000000, 'monney 1 000 000'],
-        ['m', 10000000, 'monney 10 000 000'],
-        ['m', 100000000, 'monney 100 000 000'],
-        ['m', 1000000000, 'monney 1 000 000 000'],
+        ['m', 100, 'money 100'],
+        ['m', 1000, 'money 1000'],
+        ['m', 10000, 'money 10 000'],
+        ['m', 100000, 'money 100 000'],
+        ['m', 1000000, 'money 1 000 000'],
+        ['m', 10000000, 'money 10 000 000'],
+        ['m', 100000000, 'money 100 000 000'],
+        ['m', 1000000000, 'money 1 000 000 000'],
         ['a', 1, 'accelere !!!'],
         ['a', 10, ' 1G !!'],
         ['a', 100, 'et 100G dans ta mouille, et tu es de la bouillie'],
@@ -294,7 +294,7 @@
             let now = Date.now();
             let TT = (now - T0) / 60000;
             var TTT = numberWithSpace(TT.toFixed(0))
-            var sec = ((now - T0) - (now - T0) / 60000) / 1000;
+            var sec = (((now - T0) - (now - T0) / 60000) / 1000)%60;
             var Ssec = sec.toFixed(0)
             return `${TTT} minutes et ${Ssec} secondes`;
         } else {

@@ -14,25 +14,25 @@
 <body>
     <h2>Atteins la vitesse de la Lumière</h2>
     <div class=playableButtons><strong>Augmente ta vitesse</strong><br>
-        <button class=btnV id="vAdd1">+1</button>
-        <!--<abbr title="10m$">+1</abbr>-->
-        <button class=btnV id="vAdd2">+10</button>
-        <button class=btnV id="vAdd3">+100</button>
-        <button class=btnA id="vAdd4">+1000</button>
+        <button class=btnV value="10" id="vAdd1"><abbr title="10 m$">+1</abbr></button>
+
+        <button class=btnV value="100" id="vAdd2"><abbr title="100 m$">+10</abbr></button>
+        <button class=btnV id="vAdd3"><abbr title="1 000 m$">+100</abbr></button>
+        <button class=btnV id="vAdd4"><abbr title="1e4 m$">+1000</abbr></button>
     </div>
     <br>
     <div class=playableButtons><strong>Augmente ton accélération</strong><br>
-        <button class=btnA id="aAdd1">+1</button>
-        <button class=btnA id="aAdd2">+10</button>
-        <button class=btnA id="aAdd3">+100</button>
-        <button class=btnA id="aAdd4">+1000</button>
+        <button class=btnA id="aAdd1"><abbr title="1e4 m$">+1</abbr></button>
+        <button class=btnA id="aAdd2"><abbr title="1e5 m$">+10</abbr></button>
+        <button class=btnA id="aAdd3"><abbr title="1e6 m$">+100</abbr></button>
+        <button class=btnA id="aAdd4"><abbr title="1e7 m$">+1000</abbr></button>
     </div>
     <br>
     <div class=playableButtons><strong>Accélère ton accélération</strong><br>
-        <button class=btnX id="xAdd1">+1</button>
-        <button class=btnX id="xAdd2">+10</button>
-        <button class=btnX id="xAdd3">+100</button>
-        <button class=btnX id="xAdd4">+1000</button>
+        <button class=btnX id="xAdd1"><abbr title="1e7 m$">+1</abbr></button>
+        <button class=btnX id="xAdd2"><abbr title="1e8 m$">+10</abbr></button>
+        <button class=btnX id="xAdd3"><abbr title="1e9 m$">+100</abbr></button>
+        <button class=btnX id="xAdd4"><abbr title="1e10 m$">+1000</abbr></button>
     </div>
 
     <hr>
@@ -133,7 +133,7 @@
         }
     };
 
-///////////// FONCTIONS D'AFFICHAGE //////////////
+    ///////////// FONCTIONS D'AFFICHAGE //////////////
     function showA() {
         var AA = numberWithSpace(A);
         divA.innerHTML = `Accélération : ${AA} m/s²`
@@ -175,7 +175,7 @@
 
     function showM() {
         let MM = numberWithSpace(M);
-        divM.innerHTML = `Money : ${MM} $`
+        divM.innerHTML = `Money : ${MM} m$`
     };
 
     function showV() {
@@ -208,10 +208,10 @@
         ['m', 100000000, 'money 100 000 000'],
         ['m', 1000000000, 'money 1 000 000 000'],
         ['a', 1, 'accelere !!!'],
-        ['a', 10, ' 1G !!'],
-        ['a', 100, 'et 100G dans ta mouille, et tu es de la bouillie'],
-        ['a', 1000, '1000G !? Mieux vaut être cryogénisé, enfin pas sûr...'],
-        ['a', 10000, '10 000G !? euh...'],
+        ['a', 10, '1G !!'],
+        ['a', 1000, 'et 100G dans ta mouille, et tu es de la bouillie'],
+        ['a', 10000, '1000G !? Mieux vaut être cryogénisé, enfin pas sûr...'],
+        ['a', 100000, '10 000G !? euh...'],
         ['v', 300000000, 'vitesse de la lumiere'],
         ['d', 384400000, 'Distance Terre - Lune'],
         ['d', 16500000, 'Tu as traversé le Pacifique'],
@@ -236,7 +236,7 @@
             if (i0 == 'd') {
                 if (D > i1) {
                     log.textContent = `${i3}\n` + log.textContent;
-                    logInfo.splice(i, 1); 
+                    logInfo.splice(i, 1);
                 }
             }
             if (i0 == 'v') {
@@ -248,13 +248,13 @@
             if (i0 == 'a') {
                 if (A > i1) {
                     log.textContent = `${i3}\n` + log.textContent;
-                    logInfo.splice(i, 1); 
+                    logInfo.splice(i, 1);
                 }
             }
             if (i0 == 'm') {
                 if (M > i1) {
                     log.textContent = `${i3}\n` + log.textContent;
-                    logInfo.splice(i, 1); 
+                    logInfo.splice(i, 1);
                 }
             }
         }
@@ -294,7 +294,7 @@
             let now = Date.now();
             let TT = (now - T0) / 60000;
             var TTT = numberWithSpace(TT.toFixed(0))
-            var sec = (((now - T0) - (now - T0) / 60000) / 1000)%60;
+            var sec = (((now - T0) - (now - T0) / 60000) / 1000) % 60;
             var Ssec = sec.toFixed(0)
             return `${TTT} minutes et ${Ssec} secondes`;
         } else {
@@ -460,5 +460,15 @@
     #event {
         font-family: bold;
         align-content: center;
+    }
+
+    abbr {
+        border-bottom: none !important;
+        cursor: inherit !important;
+        text-decoration: none !important;
+    }
+
+    h2 {
+        font-family: bold;
     }
 </style>

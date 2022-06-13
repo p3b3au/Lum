@@ -122,7 +122,7 @@
         CC = C*100;
                   
        zz = ((3e8-Va)/((Va-Vb)))
-     zzz = (3e8/(V*((X*X)+X)/2))
+     zzz = ((V+A+X/2) - Math.sqrt((V+A+X/2)*(V+A+X/2) + 2*3e8*X))/-X
 
         showALL();
         checkBut();

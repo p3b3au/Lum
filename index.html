@@ -42,6 +42,7 @@
         <div class=displayNb id="X">Sur Accélération : 0 m/s³</div>
         <div class=displayNb id="G"></div>
         <div class=displayNb id="M">M</div>
+        <div class=displayNb id="Tps">temps restant</div> <progress id=progressbar value="" max="100">{{CC}}%</progress>
         <br>
         <div class=displayNb id="D"></div>
         <div class=displayNb id="C">% célérité</div>
@@ -75,6 +76,7 @@
     const divC = document.getElementById("C");
     const divX = document.getElementById("X");
     const divG = document.getElementById("G");
+    const divTps = document.getElementById("Tps");
 
 
     const vAdd1 = document.getElementById("vAdd1");
@@ -96,6 +98,12 @@
 
     timer();
 
+    let Va = 0;
+    let Vb = 0;
+    let CC = 0;
+    
+    
+
 
     // les valeurs variables //
 
@@ -108,9 +116,19 @@
         G = A / 9.8;
         K = V * 3.6;
         AL = D / 9.46e15;
+        Vb = Va;
+        Va = V;
+
+        CC = C*100;
+                  
+       zz = ((3e8-Va)/((Va-Vb)))
+     zzz = (3e8/(V*((X*X)+X)/2))
+
         showALL();
         checkBut();
-    };
+        displayProgress()
+        console.log(Va-Vb, A)
+          };
 
     function showALL() {
         showA();
@@ -120,6 +138,7 @@
         showM();
         showV();
         showX();
+        showTps();
         showTime();
         checkBut();
         logTest();
@@ -133,10 +152,33 @@
         }
     };
 
+    function displayProgress(){
+       let prog = document.getElementById('progressbar');
+       prog.setAttribute("value", `${CC}`);
+    };
+
     ///////////// FONCTIONS D'AFFICHAGE //////////////
     function showA() {
         var AA = numberWithSpace(A);
         divA.innerHTML = `Accélération : ${AA} m/s²`
+    };
+
+    function showTps() {
+        let years = (zz/31536000);
+        let months = ((zz%31536000)/2629800);
+        let days = (((zz%31536000)%2629800)/86400);
+        let hours = ((((zz%31536000)%2629800)%86400)/3600);
+        let minutes = (((((zz%31536000)%2629800)%86400)%3600)/60);
+        let seconds = (((((zz%31536000)%2629800)%86400)%3600)%60);
+        let yearsZ = (zzz/31536000);
+        let monthsZ = ((zzz%31536000)/2629800);
+        let daysZ = (((zzz%31536000)%2629800)/86400);
+        let hoursZ = ((((zzz%31536000)%2629800)%86400)/3600);
+        let minutesZ = (((((zzz%31536000)%2629800)%86400)%3600)/60);
+        let secondsZ = (((((zzz%31536000)%2629800)%86400)%3600)%60);
+        var Tps = numberWithSpace(zz);
+        divTps.innerHTML = `Temps restant : ${Tps} s <br> ${Math.floor(years)} années, ${Math.floor(months)} mois, ${Math.floor(days)} jours, ${Math.floor(hours)} heures, ${Math.floor(minutes)} minutes, ${Math.floor(seconds)} secondes <br> ${Math.floor(yearsZ)} années, ${Math.floor(monthsZ)} mois, ${Math.floor(daysZ)} jours, ${Math.floor(hoursZ)} heures, ${Math.floor(minutesZ)} minutes, ${Math.floor(secondsZ)} secondes`;
+        
     };
 
     function showC() {
@@ -317,7 +359,7 @@
 
     function vBtnCalc(e) {
         if (M > e) {
-            V = V + e / 10;
+            V = V + e * 10; ///////////// pas * remettre /                  -----------------------------
             M = M - e;
             showALL();
         }
@@ -325,7 +367,7 @@
 
     function aBtnCalc(e) {
         if (M > e) {
-            A = A + e / 1e4;
+            A = A + e / 1e2; //////////// remetre e4
             M = M - e;
             showALL();;
         }
@@ -333,7 +375,7 @@
 
     function xBtnCalc(e) {
         if (M > e) {
-            X = X + e / 1e7;
+            X = X + e / 1e5;  //////// remettre e7
             M = M - e;
             showALL();
         }
@@ -449,6 +491,11 @@
 
 </html>
 <style>
+:root{--color1:#37916e;
+    --color2:#5c2f05;
+    --color3: rgb(0, 0, 0, 0.5)
+}
+
     .counters {
         display: flexbox;
     }
@@ -471,4 +518,36 @@
     h2 {
         font-family: bold;
     }
+
+
+
+    #progressbar{
+  width: 1000px;
+  padding:0px;
+  border:1px solid black;
+  border-radius: 12px;
+  height:12px;
+  }
+
+#progressbar[value]{
+    background: var(--color2);
+    }
+
+#progressbar::-webkit-progress-bar {
+    border-radius: 12px;
+    background: var(--color2);
+}
+#progressbar::-webkit-progress-value {
+	background: var(--color1);
+    /*
+    animation: toto 1000ms ease;*/
+    width: 200px;
+}
+#progressbar::-moz-progress-bar {
+	background: var(--color1);
+    /*
+    animation: toto 1000ms ease;*/
+    width: 200px;
+}
+
 </style>

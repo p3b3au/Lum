@@ -101,8 +101,9 @@
     let Va = 0;
     let Vb = 0;
     let CC = 0;
-    
-    
+    let zzz = 0;
+
+
 
 
     // les valeurs variables //
@@ -119,16 +120,15 @@
         Vb = Va;
         Va = V;
 
-        CC = C*100;
-                  
-       zz = ((3e8-Va)/((Va-Vb)))
-     zzz = ((V+A+X/2) - Math.sqrt((V+A+X/2)*(V+A+X/2) + 2*3e8*X))/-X
+        CC = C * 100;
+
+        zz = ((3e8 - Va) / ((Va - Vb)))
+        zzz = zzz-1
 
         showALL();
         checkBut();
         displayProgress()
-        console.log(Va-Vb, A)
-          };
+    };
 
     function showALL() {
         showA();
@@ -152,9 +152,14 @@
         }
     };
 
-    function displayProgress(){
-       let prog = document.getElementById('progressbar');
-       prog.setAttribute("value", `${CC}`);
+    function displayProgress() {
+        let prog = document.getElementById('progressbar');
+        prog.setAttribute("value", `${CC}`);
+    };
+
+
+    function calculTps(){
+        zzz = (-A + Math.sqrt((A*A)+4*X*(3e8-V)))/(2*X)
     };
 
     ///////////// FONCTIONS D'AFFICHAGE //////////////
@@ -164,21 +169,29 @@
     };
 
     function showTps() {
-        let years = (zz/31536000);
-        let months = ((zz%31536000)/2629800);
-        let days = (((zz%31536000)%2629800)/86400);
-        let hours = ((((zz%31536000)%2629800)%86400)/3600);
-        let minutes = (((((zz%31536000)%2629800)%86400)%3600)/60);
-        let seconds = (((((zz%31536000)%2629800)%86400)%3600)%60);
-        let yearsZ = (zzz/31536000);
-        let monthsZ = ((zzz%31536000)/2629800);
-        let daysZ = (((zzz%31536000)%2629800)/86400);
-        let hoursZ = ((((zzz%31536000)%2629800)%86400)/3600);
-        let minutesZ = (((((zzz%31536000)%2629800)%86400)%3600)/60);
-        let secondsZ = (((((zzz%31536000)%2629800)%86400)%3600)%60);
-        var Tps = numberWithSpace(zz);
-        divTps.innerHTML = `Temps restant : ${Tps} s <br> ${Math.floor(years)} années, ${Math.floor(months)} mois, ${Math.floor(days)} jours, ${Math.floor(hours)} heures, ${Math.floor(minutes)} minutes, ${Math.floor(seconds)} secondes <br> ${Math.floor(yearsZ)} années, ${Math.floor(monthsZ)} mois, ${Math.floor(daysZ)} jours, ${Math.floor(hoursZ)} heures, ${Math.floor(minutesZ)} minutes, ${Math.floor(secondsZ)} secondes`;
-        
+        if(X == 0){
+            zza = zz
+        }else{
+            zza = zzz
+        }
+        let years = (zza / 31536000);
+        let months = ((zza % 31536000) / 2629800);
+        let days = (((zza % 31536000) % 2629800) / 86400);
+        let hours = ((((zza % 31536000) % 2629800) % 86400) / 3600);
+        let minutes = (((((zza % 31536000) % 2629800) % 86400) % 3600) / 60);
+        let seconds = (((((zza % 31536000) % 2629800) % 86400) % 3600) % 60);
+        // let yearsZ = (zzz / 31536000);
+        // let monthsZ = ((zzz % 31536000) / 2629800);
+        // let daysZ = (((zzz % 31536000) % 2629800) / 86400);
+        // let hoursZ = ((((zzz % 31536000) % 2629800) % 86400) / 3600);
+        // let minutesZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) / 60);
+        // let secondsZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) % 60);
+        var Tps = numberWithSpace(zza);
+        divTps.innerHTML =
+            `Temps restant : ${Tps} s <br> ${Math.floor(years)} années, ${Math.floor(months)} mois, ${Math.floor(days)} jours, ${Math.floor(hours)} heures, ${Math.floor(minutes)} minutes, ${Math.floor(seconds)} secondes 
+            `;
+    //        <br> ${Math.floor(yearsZ)} années, ${Math.floor(monthsZ)} mois, ${Math.floor(daysZ)} jours, ${Math.floor(hoursZ)} heures, ${Math.floor(minutesZ)} minutes, ${Math.floor(secondsZ)} secondes
+
     };
 
     function showC() {
@@ -302,7 +315,7 @@
         }
 
 
-        if (V > 300000000) {
+        if (V > 3e8) {
             alert(`tu as gagné !!!!!!!!!!!!!!! \n en ${showTime()}`);
             storeScore()
         }
@@ -369,15 +382,17 @@
         if (M > e) {
             A = A + e / 1e2; //////////// remetre e4
             M = M - e;
-            showALL();;
+            showALL();
+            calculTps();
         }
     };
 
     function xBtnCalc(e) {
         if (M > e) {
-            X = X + e / 1e5;  //////// remettre e7
+            X = X + e / 1e5; //////// remettre e7
             M = M - e;
             showALL();
+            calculTps();
         }
     };
 
@@ -491,10 +506,11 @@
 
 </html>
 <style>
-:root{--color1:#37916e;
-    --color2:#5c2f05;
-    --color3: rgb(0, 0, 0, 0.5)
-}
+    :root {
+        --color1: #37916e;
+        --color2: #5c2f05;
+        --color3: rgb(0, 0, 0, 0.5)
+    }
 
     .counters {
         display: flexbox;
@@ -521,33 +537,34 @@
 
 
 
-    #progressbar{
-  width: 1000px;
-  padding:0px;
-  border:1px solid black;
-  border-radius: 12px;
-  height:12px;
-  }
-
-#progressbar[value]{
-    background: var(--color2);
+    #progressbar {
+        width: 1000px;
+        padding: 0px;
+        border: 1px solid black;
+        border-radius: 12px;
+        height: 12px;
     }
 
-#progressbar::-webkit-progress-bar {
-    border-radius: 12px;
-    background: var(--color2);
-}
-#progressbar::-webkit-progress-value {
-	background: var(--color1);
-    /*
-    animation: toto 1000ms ease;*/
-    width: 200px;
-}
-#progressbar::-moz-progress-bar {
-	background: var(--color1);
-    /*
-    animation: toto 1000ms ease;*/
-    width: 200px;
-}
+    #progressbar[value] {
+        background: var(--color2);
+    }
 
+    #progressbar::-webkit-progress-bar {
+        border-radius: 12px;
+        background: var(--color2);
+    }
+
+    #progressbar::-webkit-progress-value {
+        background: var(--color1);
+        /*
+    animation: toto 1000ms ease;*/
+        width: 200px;
+    }
+
+    #progressbar::-moz-progress-bar {
+        background: var(--color1);
+        /*
+    animation: toto 1000ms ease;*/
+        width: 200px;
+    }
 </style>

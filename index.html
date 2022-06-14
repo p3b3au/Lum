@@ -128,6 +128,11 @@
         showALL();
         checkBut();
         displayProgress()
+
+        if (V > 3e8) {
+            alert(`tu as gagné !!!!!!!!!!!!!!! \n en ${showTime()}`);
+            storeScore()
+        }
     };
 
     function showALL() {
@@ -160,6 +165,7 @@
 
     function calculTps(){
         zzz = (-A + Math.sqrt((A*A)+4*X*(3e8-V)))/(2*X)
+        console.log(zzz)
     };
 
     ///////////// FONCTIONS D'AFFICHAGE //////////////
@@ -315,10 +321,7 @@
         }
 
 
-        if (V > 3e8) {
-            alert(`tu as gagné !!!!!!!!!!!!!!! \n en ${showTime()}`);
-            storeScore()
-        }
+       
     }
 
     //// LOG END /////////////////////////////
@@ -382,8 +385,8 @@
         if (M > e) {
             A = A + e / 1e2; //////////// remetre e4
             M = M - e;
-            showALL();
             calculTps();
+            showALL();
         }
     };
 
@@ -391,8 +394,8 @@
         if (M > e) {
             X = X + e / 1e5; //////// remettre e7
             M = M - e;
-            showALL();
             calculTps();
+            showALL();
         }
     };
 

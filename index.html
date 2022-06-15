@@ -41,9 +41,9 @@
         <div class=displayNb id="A">Accélération : 0 m/s²</div>
         <div class=displayNb id="X">Sur Accélération : 0 m/s³</div>
         <div class=displayNb id="G"></div>
-        <div class=displayNb id="M">M</div>
+        <div class=displayNb id="M">M</div><br>
         <div class=displayNb id="Tps">temps restant</div> <progress id=progressbar value="" max="100">{{CC}}%</progress>
-        <br>
+        <br><br>
         <div class=displayNb id="D"></div>
         <div class=displayNb id="C">% célérité</div>
     </div>
@@ -123,16 +123,16 @@
         CC = C * 100;
 
         zz = ((3e8 - Va) / ((Va - Vb)))
-        zzz = zzz-1
+        zzz = zzz - 1
 
         showALL();
         checkBut();
         displayProgress()
 
-        if (V > 3e8) {
-            alert(`tu as gagné !!!!!!!!!!!!!!! \n en ${showTime()}`);
-            storeScore()
-        }
+        // if (V > 3e8) {
+        //     alert(`tu as gagné !!!!!!!!!!!!!!! \n en ${showTime()}`);
+        //     storeScore()
+        // }
     };
 
     function showALL() {
@@ -163,9 +163,9 @@
     };
 
 
-    function calculTps(){
-        zzz = (-A + Math.sqrt((A*A)+4*X*(3e8-V)))/(2*X)
-        console.log(zzz)
+    function calculTps() {
+        zzz = (-A + Math.sqrt((A * A) + 4 * X * (3e8 - V))) / (2 * X)
+
     };
 
     ///////////// FONCTIONS D'AFFICHAGE //////////////
@@ -175,26 +175,29 @@
     };
 
     function showTps() {
-        if(X == 0){
+        if (X == 0) {
             zza = zz
-        }else{
+        } else if (V < 3e8) {
             zza = zzz
+        } else {
+            divTps.innerHTML = 'vitesse de la lumière atteinte'
         }
-        let years = (zza / 31536000);
-        let months = ((zza % 31536000) / 2629800);
-        let days = (((zza % 31536000) % 2629800) / 86400);
-        let hours = ((((zza % 31536000) % 2629800) % 86400) / 3600);
-        let minutes = (((((zza % 31536000) % 2629800) % 86400) % 3600) / 60);
-        let seconds = (((((zza % 31536000) % 2629800) % 86400) % 3600) % 60);
-        // let yearsZ = (zzz / 31536000);
-        // let monthsZ = ((zzz % 31536000) / 2629800);
-        // let daysZ = (((zzz % 31536000) % 2629800) / 86400);
-        // let hoursZ = ((((zzz % 31536000) % 2629800) % 86400) / 3600);
-        // let minutesZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) / 60);
-        // let secondsZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) % 60);
-        var Tps = numberWithSpace(zza);
-        divTps.innerHTML =
-            `Temps restant : ${Tps} s <br> ${Math.floor(years)} années, ${Math.floor(months)} mois, ${Math.floor(days)} jours, ${Math.floor(hours)} heures, ${Math.floor(minutes)} minutes, ${Math.floor(seconds)} secondes 
+    
+    let years = (zza / 31536000);
+    let months = ((zza % 31536000) / 2629800);
+    let days = (((zza % 31536000) % 2629800) / 86400);
+    let hours = ((((zza % 31536000) % 2629800) % 86400) / 3600);
+    let minutes = (((((zza % 31536000) % 2629800) % 86400) % 3600) / 60);
+    let seconds = (((((zza % 31536000) % 2629800) % 86400) % 3600) % 60);
+    // let yearsZ = (zzz / 31536000);
+    // let monthsZ = ((zzz % 31536000) / 2629800);
+    // let daysZ = (((zzz % 31536000) % 2629800) / 86400);
+    // let hoursZ = ((((zzz % 31536000) % 2629800) % 86400) / 3600);
+    // let minutesZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) / 60);
+    // let secondsZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) % 60);
+    var Tps = numberWithSpace(zza);
+    divTps.innerHTML =
+        `Temps restant : ${Tps} s <br> ${Math.floor(years)} années, ${Math.floor(months)} mois, ${Math.floor(days)} jours, ${Math.floor(hours)} heures, ${Math.floor(minutes)} minutes, ${Math.floor(seconds)} secondes 
             `;
     //        <br> ${Math.floor(yearsZ)} années, ${Math.floor(monthsZ)} mois, ${Math.floor(daysZ)} jours, ${Math.floor(hoursZ)} heures, ${Math.floor(minutesZ)} minutes, ${Math.floor(secondsZ)} secondes
 
@@ -321,7 +324,7 @@
         }
 
 
-       
+
     }
 
     //// LOG END /////////////////////////////

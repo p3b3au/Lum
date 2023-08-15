@@ -129,10 +129,10 @@
         checkBut();
         displayProgress()
 
-        // if (V > 3e8) {
-        //     alert(`tu as gagné !!!!!!!!!!!!!!! \n en ${showTime()}`);
-        //     storeScore()
-        // }
+        if (V > 3e8) {
+            alert(`tu as gagné !!!!!!!!!!!!!!! \n en ${showTime()}`);
+            storeScore()
+        }
     };
 
     function showALL() {
@@ -165,7 +165,6 @@
 
     function calculTps() {
         zzz = (-A + Math.sqrt((A * A) + 4 * X * (3e8 - V))) / (2 * X)
-
     };
 
     ///////////// FONCTIONS D'AFFICHAGE //////////////
@@ -175,31 +174,34 @@
     };
 
     function showTps() {
-        if (X == 0) {
-            zza = zz
-        } else if (V < 3e8) {
-            zza = zzz
+        if (A == 0) {
+            divTps.innerHTML = `Temps restant : infini`
         } else {
-            divTps.innerHTML = 'vitesse de la lumière atteinte'
-        }
-    
-    let years = (zza / 31536000);
-    let months = ((zza % 31536000) / 2629800);
-    let days = (((zza % 31536000) % 2629800) / 86400);
-    let hours = ((((zza % 31536000) % 2629800) % 86400) / 3600);
-    let minutes = (((((zza % 31536000) % 2629800) % 86400) % 3600) / 60);
-    let seconds = (((((zza % 31536000) % 2629800) % 86400) % 3600) % 60);
-    // let yearsZ = (zzz / 31536000);
-    // let monthsZ = ((zzz % 31536000) / 2629800);
-    // let daysZ = (((zzz % 31536000) % 2629800) / 86400);
-    // let hoursZ = ((((zzz % 31536000) % 2629800) % 86400) / 3600);
-    // let minutesZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) / 60);
-    // let secondsZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) % 60);
-    var Tps = numberWithSpace(zza);
-    divTps.innerHTML =
-        `Temps restant : ${Tps} s <br> ${Math.floor(years)} années, ${Math.floor(months)} mois, ${Math.floor(days)} jours, ${Math.floor(hours)} heures, ${Math.floor(minutes)} minutes, ${Math.floor(seconds)} secondes 
+            if (X == 0) {
+                zza = zz
+            } else if (V < 3e8) {
+                zza = zzz
+            } else {
+                divTps.innerHTML = 'vitesse de la lumière atteinte'
+            }
+            let years = (zza / 31536000);
+            let months = ((zza % 31536000) / 2629800);
+            let days = (((zza % 31536000) % 2629800) / 86400);
+            let hours = ((((zza % 31536000) % 2629800) % 86400) / 3600);
+            let minutes = (((((zza % 31536000) % 2629800) % 86400) % 3600) / 60);
+            let seconds = (((((zza % 31536000) % 2629800) % 86400) % 3600) % 60);
+            // let yearsZ = (zzz / 31536000);
+            // let monthsZ = ((zzz % 31536000) / 2629800);
+            // let daysZ = (((zzz % 31536000) % 2629800) / 86400);
+            // let hoursZ = ((((zzz % 31536000) % 2629800) % 86400) / 3600);
+            // let minutesZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) / 60);
+            // let secondsZ = (((((zzz % 31536000) % 2629800) % 86400) % 3600) % 60);
+            var Tps = numberWithSpace(zza);
+            divTps.innerHTML =
+                `Temps restant : ${Tps} s <br> ${Math.floor(years)} années, ${Math.floor(months)} mois, ${Math.floor(days)} jours, ${Math.floor(hours)} heures, ${Math.floor(minutes)} minutes, ${Math.floor(seconds)} secondes 
             `;
-    //        <br> ${Math.floor(yearsZ)} années, ${Math.floor(monthsZ)} mois, ${Math.floor(daysZ)} jours, ${Math.floor(hoursZ)} heures, ${Math.floor(minutesZ)} minutes, ${Math.floor(secondsZ)} secondes
+            //        <br> ${Math.floor(yearsZ)} années, ${Math.floor(monthsZ)} mois, ${Math.floor(daysZ)} jours, ${Math.floor(hoursZ)} heures, ${Math.floor(minutesZ)} minutes, ${Math.floor(secondsZ)} secondes
+        }
 
     };
 
@@ -296,35 +298,32 @@
         for (i = 0; i < logInfo.length; i++) {
             let i0 = logInfo[i][0]
             let i1 = logInfo[i][1]
-            let i3 = logInfo[i][2]
+            let i2 = logInfo[i][2]
             if (i0 == 'd') {
                 if (D > i1) {
-                    log.textContent = `${i3}\n` + log.textContent;
+                    log.textContent = `${i2}\n` + log.textContent;
                     logInfo.splice(i, 1);
                 }
             }
             if (i0 == 'v') {
                 if (V > i1) {
-                    log.textContent = `${i3}\n` + log.textContent;
+                    log.textContent = `${i2}\n` + log.textContent;
                     logInfo.splice(i, 1);
                 }
             }
             if (i0 == 'a') {
                 if (A > i1) {
-                    log.textContent = `${i3}\n` + log.textContent;
+                    log.textContent = `${i2}\n` + log.textContent;
                     logInfo.splice(i, 1);
                 }
             }
             if (i0 == 'm') {
                 if (M > i1) {
-                    log.textContent = `${i3}\n` + log.textContent;
+                    log.textContent = `${i2}\n` + log.textContent;
                     logInfo.splice(i, 1);
                 }
             }
         }
-
-
-
     }
 
     //// LOG END /////////////////////////////
@@ -378,7 +377,7 @@
 
     function vBtnCalc(e) {
         if (M > e) {
-            V = V + e * 10; ///////////// pas * remettre /                  -----------------------------
+            V = V + e / 10;
             M = M - e;
             showALL();
         }
@@ -386,7 +385,7 @@
 
     function aBtnCalc(e) {
         if (M > e) {
-            A = A + e / 1e2; //////////// remetre e4
+            A = A + e / 1e4;
             M = M - e;
             calculTps();
             showALL();
@@ -395,7 +394,7 @@
 
     function xBtnCalc(e) {
         if (M > e) {
-            X = X + e / 1e5; //////// remettre e7
+            X = X + e / 1e7;
             M = M - e;
             calculTps();
             showALL();
